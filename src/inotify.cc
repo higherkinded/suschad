@@ -20,6 +20,8 @@ using std::vector;
 inotify::inotify(std::vector<dsl::watcher> &&watchers) noexcept {
     util::verbose("Creating an inotify instance");
 
+    handlers = new std::map<int, wfd_data>();
+
     inotify_fd = inotify_init();
 
     if (inotify_fd == -1) {
@@ -46,7 +48,7 @@ inotify::inotify(std::vector<dsl::watcher> &&watchers) noexcept {
             strerror(errno)
         );
 
-        handlers.insert({ wfd, wfd_data {
+        handlers->insert({ wfd, wfd_data {
             std::move(watcher.cmd),
             watcher.location,
         }});
@@ -55,9 +57,14 @@ inotify::inotify(std::vector<dsl::watcher> &&watchers) noexcept {
 
 static constexpr size_t READBUF_SIZE = sizeof(inotify_event) + NAME_MAX + 1;
 
-void inotify::exec(inotify_event *ev) const noexcept {
+void inotify::exec(inotify_event *ev) noexcept {
     std::vector<const char *> argv;
-    const auto &handler = handlers.at(ev->wd);
+
+    if (handlers->find(ev->wd) == handlers->end()) {
+        util::err("Unknown watch descriptor: %d", ev->wd);
+    }
+
+    const auto &handler = handlers->at(ev->wd);
 
     for (const auto &arg : handler.args) {
         switch (arg.substitution) {
@@ -83,10 +90,9 @@ void inotify::exec(inotify_event *ev) const noexcept {
 
             util::err("Failed to exec `%s`: %s", cmd.data(), strerror(errno));
         }
-    }
-}
+    } }
 
-void inotify::run() const noexcept {
+void inotify::run() noexcept {
     static std::array<uint8_t, READBUF_SIZE> evb;
     inotify_event *ev;
 

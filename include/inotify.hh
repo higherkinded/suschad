@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <string>
 #include <memory>
-#include <unordered_map>
+#include <map>
 #include <vector>
 
 #include <sys/inotify.h>
@@ -17,12 +17,12 @@ class inotify {
             std::string location;
         };
 
-        std::unordered_map<int, wfd_data> handlers;
+        std::map<int, wfd_data> *handlers;
         int inotify_fd;
 
-        void exec(inotify_event *ev) const noexcept;
+        void exec(inotify_event *ev) noexcept;
 
     public:
         inotify(std::vector<dsl::watcher> &&watchers) noexcept;
-        void run() const noexcept;
+        void run() noexcept;
 };

@@ -18,7 +18,7 @@ auto main(const int argc, const char **argv) -> int {
 
     using namespace dsl;
 
-    const inotify inh({
+    inotify inh({
         #include "events"
     });
 
