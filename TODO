@@ -1,0 +1,6 @@
+--------------------------------------------------------------------------------
+                                      TODO
+--------------------------------------------------------------------------------
+
+* Add repetitive handling to inotify events that trigger just once.
+* Reduce the reliance on STL structures.

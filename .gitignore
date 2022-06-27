@@ -1,0 +1,5 @@
+*.plist
+.cache
+config/events
+build
+compile_commands.json

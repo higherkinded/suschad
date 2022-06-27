@@ -1,0 +1,34 @@
+================================================================================
+
+                                             _|                        _|
+       _|_|_|  _|    _|    _|_|_|    _|_|_|  _|_|_|      _|_|_|    _|_|_|
+     _|_|      _|    _|  _|_|      _|        _|    _|  _|    _|  _|    _|
+         _|_|  _|    _|      _|_|  _|        _|    _|  _|    _|  _|    _|
+     _|_|_|      _|_|_|  _|_|_|      _|_|_|  _|    _|    _|_|_|    _|_|_|
+
+================================================================================
+
+suschad - Static UserSpace CHAnge Daemon. Watches your stuff, runs commands.
+
+--------------------------------------------------------------------------------
+
+0. DEPENDENCIES
+
+Nothing. Just libstdc++ or whatever implementation you presumably already have
+unless you've got so hyperbased that you don't have it. You likely do. Don't lie
+to me.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+1. BUILDING
+
+Just run `make`.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+2. CONFIGURATION
+
+Consult `config/events.def` for example. The whole configuration DSL is
+described in `include/dsl.hh`.
+
+================================================================================

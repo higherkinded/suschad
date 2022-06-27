@@ -1,0 +1,1 @@
+{ "/tmp", { Create }, { "echo", "Created", Name, "in", Self } },
